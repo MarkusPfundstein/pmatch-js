@@ -8,9 +8,16 @@ Powerful pattern matching for js
 
 ## Examples
 
-Note: The otherwise call is *necessary* and must be the last call that you make. 
+Notes: 
+The otherwise call is *necessary* and must be the last call that you make. 
+
+'_' acts as a wildcard. I liked the smiley :-)
+
+Its implemented via recursion. Just that you know.
 
 The standard examples:
+
+Calculate fibonacci
 ```
 const fibbonacci = n => {
         const go = (n, a, b) => match(n)
@@ -21,13 +28,17 @@ const fibbonacci = n => {
 }
 
 console.log(fibbonacci(25));
-
+```
+Calculate factorial
+```
 const factorial = n => match(n)
         .when(0, _ => 1)
         .otherwise(n => n * factorial(n - 1));
 
 console.log(factorial(10))
-
+```
+list length
+```
 const tail = ([_, ...xs]) => xs;
 const head = ([x, ..._]) => x;
 
@@ -36,7 +47,9 @@ const count = c => match(c)
         .otherwise(xs => 1 + count(tail(xs)));
 
 console.log(count([1,2,3,4,5]));
-
+```
+Map f over a list
+```
 const map = (f, xs) => match(xs)
         .when([], v => [])
         .otherwise(([x, ...xs]) => [f(x), ...map(f, xs)]);
@@ -44,8 +57,7 @@ const map = (f, xs) => match(xs)
 console.log(map(Number, ['1', '2', '3', '4', '5']));
 ```
 
-Canconical depth-first search example:
-
+Tree depth-first search:
 ```
 class Tree {
         constructor(left, right) {
@@ -73,6 +85,7 @@ dfs(T(T(N(5), T(N(7), N(1))), T(N(-1), N(8))))
 
 
 Some deeper patterns:
+Note: 'string' and 'number' are the `typeof's`. So we can match on those as well...
 ```
 const m1 = match('Hello')
 	.when('string', a => [true, a.toUpperCase()])
@@ -90,7 +103,6 @@ L(m2);
 ```
 
 some more difficult ones:
-
 ```
 const m5 = match(['Hello', [100, 100], 100])
 	.when(['Hello', [5, 5], '_'], ([a, b, c]) => [false, a, b, c])
@@ -100,7 +112,10 @@ const m5 = match(['Hello', [100, 100], 100])
 	.otherwise(_ => [false, 'no match'])
 
 L(m5);
+```
 
+Can also match own types in nested arrays:
+```
 class ABox {
 	constructor(v) {
 		this.v = v;
