@@ -17,13 +17,9 @@ const safeCall = (f, t) => {
 };
 
 const _matchP = function(type, tc) {
-	//console.log(`type: ${type}, tc: ${tc}`);
 	if (tc === '_' || tc === type) {
 		return true;
 	} else if (Array.isArray(tc) && Array.isArray(type) && tc.length === type.length) {
-		if (tc.length === 0) {
-			return true;
-		}
 		return R.all(p => _matchP(p[1], p[0]), R.zip(tc, type));
 	} else if (typeof type === tc || safeInstanceOf(type, tc)) {
 		return true;
