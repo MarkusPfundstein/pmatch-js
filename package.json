@@ -1,6 +1,6 @@
 {
   "name": "pmatch-js",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Pattern matching library for functional programming",
   "main": "match.js",
   "scripts": {
