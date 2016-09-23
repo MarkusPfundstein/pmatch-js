@@ -56,3 +56,28 @@ const m6 = match([new ABox(5), [new ABox(10), new ABox(20)]])
 	.otherwise(_ => 'no match');
 
 L(m6);
+
+class Tree {
+	constructor(left, right) {
+		this.left = left;
+		this.right = right;
+	}
+}
+
+class Node {
+	constructor(value) {
+		this.value = value;
+	}
+}
+
+const T = (l, r) => new Tree(l, r);
+const N = v => new Node(v);
+
+const dfs = (t) => match(t)
+	.when(Node, v => console.log(v.value))
+	.when(Tree, t => { dfs(t.left); dfs(t.right)})
+	.otherwise(_ => 'error');
+
+dfs(T(T(N(5), T(N(7), N(1))), T(N(-1), N(8))));
+
+
