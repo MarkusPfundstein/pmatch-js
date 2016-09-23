@@ -57,7 +57,7 @@ const map = (f, xs) => match(xs)
 console.log(map(Number, ['1', '2', '3', '4', '5']));
 ```
 
-Tree depth-first search:
+Walk-a-tree
 ```
 class Tree {
         constructor(left, right) {
@@ -75,12 +75,12 @@ class Node {
 const T = (l, r) => new Tree(l, r);
 const N = v => new Node(v);
 
-const dfs = t => match(t)
+const walkT = t => match(t)
         .when(Node, v => console.log(v.value))
-        .when(Tree, t => { dfs(t.left); dfs(t.right)})
+        .when(Tree, t => { walkT(t.left); walkT(t.right)})
         .otherwise(_ => 'error');
 
-dfs(T(T(N(5), T(N(7), N(1))), T(N(-1), N(8))))
+walkT(T(T(N(5), T(N(7), N(1))), T(N(-1), N(8))))
 ```
 
 
