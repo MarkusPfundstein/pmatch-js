@@ -1,0 +1,22 @@
+{
+  "name": "matchjs",
+  "version": "1.0.0",
+  "description": "Pattern matching library for functional programming",
+  "main": "match.js",
+  "scripts": {
+    "test": "mocha tests"
+  },
+  "keywords": [
+    "functional",
+    "programming",
+    "ramda",
+    "fp",
+    "pattern",
+    "matching"
+  ],
+  "author": "Markus Pfundstein",
+  "license": "MIT",
+  "dependencies": {
+    "ramda": "0.22.1"
+  }
+}
