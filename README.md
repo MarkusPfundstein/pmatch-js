@@ -10,6 +10,27 @@ Powerful pattern matching for js
 
 Note: The otherwise call is *necessary* and must be the last call that you make. 
 
+The standard examples:
+```
+const fibbonacci = (n) => {
+        const go = (n, a, b) => {
+                return match(n)
+                        .when(0, _ => a)
+                        .otherwise(_ => go(n - 1, b, a +b));
+        }
+        return go(n, 0, 1);
+}
+
+console.log(fibbonacci(25));
+
+const factorial = (n) => match(n)
+        .when(0, _ => 1)
+        .otherwise(n => n * factorial(n - 1));
+
+console.log(factorial(10))
+```
+
+Some deeper patterns:
 ```
 const m1 = match('Hello')
 	.when('string', a => [true, a.toUpperCase()])
