@@ -12,23 +12,50 @@ Note: The otherwise call is *necessary* and must be the last call that you make.
 
 The standard examples:
 ```
-const fibbonacci = (n) => {
-        const go = (n, a, b) => {
-                return match(n)
-                        .when(0, _ => a)
-                        .otherwise(_ => go(n - 1, b, a +b));
-        }
+const fibbonacci = n => {
+        const go = (n, a, b) => match(n)
+                .when(0, _ => a)
+                .otherwise(_ => go(n - 1, b, a +b));
+
         return go(n, 0, 1);
 }
 
 console.log(fibbonacci(25));
 
-const factorial = (n) => match(n)
+const factorial = n => match(n)
         .when(0, _ => 1)
         .otherwise(n => n * factorial(n - 1));
 
 console.log(factorial(10))
 ```
+
+Canconical depth-first search example:
+
+```
+class Tree {
+        constructor(left, right) {
+                this.left = left;
+                this.right = right;
+        }
+}
+
+class Node {
+        constructor(value) {
+                this.value = value;
+        }
+}
+
+const T = (l, r) => new Tree(l, r);
+const N = v => new Node(v);
+
+const dfs = t => match(t)
+        .when(Node, v => console.log(v.value))
+        .when(Tree, t => { dfs(t.left); dfs(t.right)})
+        .otherwise(_ => 'error');
+
+dfs(T(T(N(5), T(N(7), N(1))), T(N(-1), N(8))))
+```
+
 
 Some deeper patterns:
 ```
@@ -71,31 +98,4 @@ const m6 = match([new ABox(5), [new ABox(10), new ABox(20)]])
 	.otherwise(_ => 'no match');
 
 L(m6);
-```
-
-Canconical depth-first search example:
-
-```
-class Tree {
-        constructor(left, right) {
-                this.left = left;
-                this.right = right;
-        }
-}
-
-class Node {
-        constructor(value) {
-                this.value = value;
-        }
-}
-
-const T = (l, r) => new Tree(l, r);
-const N = v => new Node(v);
-
-const dfs = (t) => match(t)
-        .when(Node, v => console.log(v.value))
-        .when(Tree, t => { dfs(t.left); dfs(t.right)})
-        .otherwise(_ => 'error');
-
-dfs(T(T(N(5), T(N(7), N(1))), T(N(-1), N(8))))
 ```
