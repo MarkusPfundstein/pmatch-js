@@ -57,7 +57,7 @@ const map = (f, xs) => match(xs)
 console.log(map(Number, ['1', '2', '3', '4', '5']));
 ```
 
-Walk-a-tree
+Walk-a-tree / map f over Tree
 ```
 class Tree {
         constructor(left, right) {
@@ -79,6 +79,18 @@ const walkT = t => match(t)
         .when(Node, v => console.log(v.value))
         .when(Tree, t => { walkT(t.left); walkT(t.right)})
         .otherwise(_ => 'error');
+        
+const mapT = (f, t) => match(t)
+        .when(Node, v => N(f(v.value)))
+        .when(Tree, t => T(mapT(f, t.left), mapT(f, t.right)))
+        .otherwise(_ => { throw new Error('error') });
+
+const pow = v => Math.pow(v, 2);
+
+const mapped = mapT(pow, T(T(N(5), T(N(7), N(1))), T(N(-1), N(8))));
+
+walkT(mapped);
+
 
 walkT(T(T(N(5), T(N(7), N(1))), T(N(-1), N(8))))
 ```
