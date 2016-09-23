@@ -90,9 +90,6 @@ const pow = v => Math.pow(v, 2);
 const mapped = mapT(pow, T(T(N(5), T(N(7), N(1))), T(N(-1), N(8))));
 
 walkT(mapped);
-
-
-walkT(T(T(N(5), T(N(7), N(1))), T(N(-1), N(8))))
 ```
 
 
