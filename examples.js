@@ -73,12 +73,25 @@ class Node {
 const T = (l, r) => new Tree(l, r);
 const N = v => new Node(v);
 
-const dfs = t => match(t)
+const walkT = t => match(t)
 	.when(Node, v => console.log(v.value))
-	.when(Tree, t => { dfs(t.left); dfs(t.right)})
-	.otherwise(_ => 'error');
+	.when(Tree, t => { walkT(t.left); walkT(t.right)})
+	.otherwise(_ => { throw new Error('error') });
 
-dfs(T(T(N(5), T(N(7), N(1))), T(N(-1), N(8))));
+console.log('walkT example');
+walkT(T(T(N(5), T(N(7), N(1))), T(N(-1), N(8))));
+
+const mapT = (f, t) => match(t)
+	.when(Node, v => N(f(v.value)))
+	.when(Tree, t => T(mapT(f, t.left), mapT(f, t.right)))
+	.otherwise(_ => { throw new Error('error') });
+
+const pow = v => Math.pow(v, 2);
+console.log('mapT example');
+const mapped = mapT(pow, T(T(N(5), T(N(7), N(1))), T(N(-1), N(8))));
+walkT(mapped);
+
+console.log('fibonacci');
 
 const fibbonacci = n => {
 	const go = (n, a, b) => match(n)
@@ -90,6 +103,8 @@ const fibbonacci = n => {
 
 console.log(fibbonacci(25));
 
+console.log('factorial');
+
 const factorial = n => match(n)
 	.when(0, _ => 1)
 	.otherwise(n => n * factorial(n - 1));
@@ -100,11 +115,15 @@ console.log(factorial(10))
 const tail = ([_, ...xs]) => xs;
 const head = ([x, ..._]) => x;
 
+console.log('count');
+
 const count = c => match(c)
 	.when([], _ => 0)
 	.otherwise(xs => 1 + count(tail(xs)));
 
 console.log(count([1,2,3,4,5]));
+
+console.log('map');
 
 const map = (f, xs) => match(xs)
 	.when([], v => [])
