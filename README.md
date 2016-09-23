@@ -8,7 +8,7 @@ Powerful pattern matching for js
 
 ## Examples
 
-Note: The otherwise call is *necessary*.
+Note: The otherwise call is *necessary* and must be the last call that you make. 
 
 ```
 const m5 = match(['Hello', [100, 100], 100])
