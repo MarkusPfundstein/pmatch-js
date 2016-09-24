@@ -6,6 +6,13 @@
   "scripts": {
     "test": "mocha tests"
   },
+  "engines" : { 
+    "node" : ">=6.0.0"
+  },
+  "repository" : { 
+    "type" : "git",
+    "url" : "https://github.com/MarkusPfundstein/pmatch-js"
+  },
   "keywords": [
     "functional",
     "programming",
