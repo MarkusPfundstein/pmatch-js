@@ -125,7 +125,7 @@ const m5 = match(['Hello', [100, 100], 100])
 	.when(['Hello', [5, 5], '_'], ([a, b, c]) => [false, a, b, c])
 	.when(['Hello', [100, 100], p => p < 100], ([a, b, c]) => [false, a, b, c])
 	.when(['Goodbye', ['_', '_'], '_'], ([a, b, c]) => [false, a, b, c])
-	.when(['_', [100, 100], p => p === 100], ([a, b, c]) => [true, a, b, c])     //<- will match
+/* -> */.when(['_', [100, 100], p => p === 100], ([a, b, c]) => [true, a, b, c])
 	.otherwise(_ => [false, 'no match'])
 
 L(m5);
