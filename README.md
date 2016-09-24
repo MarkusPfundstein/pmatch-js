@@ -6,19 +6,22 @@ Powerful pattern matching for js
 
 `npm install pmatch-js`
 
+## Testing
+
+Run `npm test` - requires chai and mocha
+
 ## Examples
 
 Notes: 
 * The otherwise call is *necessary* and must be the last call that you make. 
 * '_' acts as a wildcard. I liked the smiley :-)
 * Its implemented via recursion. Just that you know.
-* You can run them all with node ./examples.js
 
 Calculate fibonacci
 ```
 const fibbonacci = n => {
         const go = (n, a, b) => match(n)
-                .when(0, _ => a)
+                .when(0, a)
                 .otherwise(_ => go(n - 1, b, a +b));
 
         return go(n, 0, 1);
@@ -30,7 +33,7 @@ console.log(fibbonacci(25));
 Calculate factorial
 ```
 const factorial = n => match(n)
-        .when(0, _ => 1)
+        .when(0, 1)
         .otherwise(n => n * factorial(n - 1));
 
 console.log(factorial(10))
@@ -126,6 +129,19 @@ const m5 = match(['Hello', [100, 100], 100])
 	.otherwise(_ => [false, 'no match'])
 
 L(m5);
+
+const anyObject = {
+	a: 5,
+	b : {
+		c: 4
+	}
+};
+
+const m7 = match(anyObject)
+	.when({a : 5}, false)
+	.when({a : 5, b : { c : 3 }}, false)
+	.when({a : 5, b : { c : '_' }}, true)
+	.otherwise(false);
 ```
 
 Can also match own types in nested arrays:

@@ -17,7 +17,7 @@ const safeCall = (f, t) => {
 };
 
 const _matchP = function(type, tc) {
-	if (tc === '_' || tc === type) {
+	if (tc === '_' || tc === type) { // || R.equals(tc, type)
 		return true;
 	} else if (Array.isArray(tc) && Array.isArray(type) && tc.length === type.length) {
 		return R.all(p => _matchP(p[1], p[0]), R.zip(tc, type));
@@ -25,6 +25,15 @@ const _matchP = function(type, tc) {
 		return true;
 	} else if (typeof tc === 'function' && safeCall(tc, type) === true) {
 		return true;
+	} else if (!Array.isArray(tc) && typeof tc === 'object' && typeof type === 'object') {
+		const tcKeys = R.keys(tc);
+		const typeKeys = R.keys(type);
+		if (tcKeys.length === typeKeys.length) {
+			return R.all(k => {
+				return tc[k] != null && _matchP(type[k], tc[k]);
+			}, typeKeys);
+		} 
+		return false;
 	} else {
 		return false;
 	}
@@ -32,13 +41,20 @@ const _matchP = function(type, tc) {
 
 const _matchC = function(type, hasType = false) {
 
+	const applyF = f => {
+		return (typeof f === 'function') ? f : _ => f;;
+	}
+
 	const when = (tc, f) => {
+		//console.log(`${tc} = ${type}`);
 		if (hasType) {
 			return _matchC(type, true);
 		}
 
 		if (_matchP(type, tc)) {
-                     	return _matchC(f(type), true);
+			const g = applyF(f);
+			//console.log(`done ${g(type)}`);
+                     	return _matchC(g(type), true);
 		} else {
 			return _matchC(type, false);
 		}
@@ -48,7 +64,8 @@ const _matchC = function(type, hasType = false) {
 		if (hasType) {
 			return type;
 		}
-		return f(type);
+		const g = applyF(f);
+		return g(type);
 	}
 	
 	return { when, otherwise };
