@@ -46,14 +46,12 @@ const _matchC = function(type, hasType = false) {
 	}
 
 	const when = (tc, f) => {
-		//console.log(`${tc} = ${type}`);
 		if (hasType) {
 			return _matchC(type, true);
 		}
 
 		if (_matchP(type, tc)) {
 			const g = applyF(f);
-			//console.log(`done ${g(type)}`);
                      	return _matchC(g(type), true);
 		} else {
 			return _matchC(type, false);
