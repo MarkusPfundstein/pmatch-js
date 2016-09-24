@@ -45,7 +45,7 @@ const tail = ([_, ...xs]) => xs;
 const head = ([x, ..._]) => x;
 
 const count = c => match(c)
-        .when([], _ => 0)
+        .when([], 0)
         .otherwise(xs => 1 + count(tail(xs)));
 
 console.log(count([1,2,3,4,5]));
@@ -54,7 +54,7 @@ console.log(count([1,2,3,4,5]));
 Map f over a list
 ```
 const map = (f, xs) => match(xs)
-        .when([], v => [])
+        .when([], [])
         .otherwise(([x, ...xs]) => [f(x), ...map(f, xs)]);
 
 console.log(map(Number, ['1', '2', '3', '4', '5']));
