@@ -70,3 +70,14 @@ const map = (f, xs) => match(xs)
 	.otherwise(([x, ...xs]) => [f(x), ...map(f, xs)]);
 
 console.log(map(Number, ['1', '2', '3', '4', '5']));
+
+const zipWith = (f, lst1, lst2) => match([lst1, lst2])
+	.when([[], '_'], [])
+	.when(['_', []], [])
+	.otherwise(([[x, ...xs], [y, ...ys]]) => [f(x, y)].concat(zipWith(f, xs, ys)));
+
+console.log(zipWith((a, b) => a + b, [4,2,5,6], [2,6,2,3]));
+
+console.log(zipWith((a, b) => `${a} ${b}`, ['foo', 'bar', 'baz'], ['fighters', 'hoppers', 'aldrin']));
+
+console.log(zipWith(Math.max, [6,3,2,1], [7,3,1,5]));

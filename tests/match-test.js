@@ -56,6 +56,11 @@ describe('match.js', () => {
 			.otherwise(false);
 
 		expectT(m2);
+
+		const m3 = match([[1,2], []])
+			.when(['_', []], true)
+			.otherwise(false);
+		expectT(m3);
 	});
 
 	it('matches based on wildcards', () => {
