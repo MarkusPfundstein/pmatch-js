@@ -1,6 +1,6 @@
 # pmatch-js
 
-Powerful pattern matching for js
+Powerful pattern matching for js - inspired by Haskell.
 
 ## Install 
 
@@ -16,6 +16,7 @@ Notes:
 * The otherwise call is *necessary* and must be the last call that you make. 
 * '_' acts as a wildcard. I liked the smiley :-)
 * Its implemented via recursion. Just that you know.
+* uses ES6 syntax. 
 
 Calculate fibonacci
 ```

@@ -76,6 +76,7 @@ const zipWith = (f, lst1, lst2) => match([lst1, lst2])
 	.when(['_', []], [])
 	.otherwise(([[x, ...xs], [y, ...ys]]) => [f(x, y)].concat(zipWith(f, xs, ys)));
 
+console.log('zipWith');
 console.log(zipWith((a, b) => a + b, [4,2,5,6], [2,6,2,3]));
 
 console.log(zipWith((a, b) => `${a} ${b}`, ['foo', 'bar', 'baz'], ['fighters', 'hoppers', 'aldrin']));

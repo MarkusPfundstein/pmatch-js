@@ -1,7 +1,7 @@
 {
   "name": "pmatch-js",
-  "version": "1.0.6",
-  "description": "Pattern matching library for functional programming",
+  "version": "1.0.7",
+  "description": "ES6 pattern matching library for functional programming - inspired by Haskell",
   "main": "match.js",
   "scripts": {
     "test": "mocha tests"
@@ -19,7 +19,8 @@
     "ramda",
     "fp",
     "pattern",
-    "matching"
+    "matching",
+    "haskell"
   ],
   "author": "Markus Pfundstein",
   "license": "MIT",
