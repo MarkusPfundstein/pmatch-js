@@ -37,13 +37,13 @@ FizzBuzz
 const _ = require('lodash')
 
 const fizzbuzz = x => match(x)
-.when(a => a % 3 == 0 && a % 5 == 0, 'fizzbuzz')
-.when(a => a % 5 == 0, 'buzz')
-.when(a => a % 3 == 0, 'fizz')
-.otherwise(a => a)
+	.when(a => a % 3 == 0 && a % 5 == 0, 'fizzbuzz')
+	.when(a => a % 5 == 0, 'buzz')
+	.when(a => a % 3 == 0, 'fizz')
+	.otherwise(a => a)
 
 console.log(
-_.range(1, 101).map(fizzbuzz).join(' ')
+	_.range(1, 101).map(fizzbuzz).join(' ')
 )
 // -> fizzbuzz ;-)
 ```
